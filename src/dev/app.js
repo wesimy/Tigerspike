@@ -3,7 +3,8 @@ var app = angular.module('TechnicalExercise', [
   'ngSanitize',
     'ngRoute',
   'ngSanitize',
-    'ngAnimate'
+    'ngAnimate',
+    'ngMessages'
 ]);
 
 

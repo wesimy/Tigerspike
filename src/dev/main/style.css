@@ -31,6 +31,9 @@ COLOR SCHEME
 .page .form-container form button {
   margin-top: 15px;
 }
+.page .form-container form .has-error {
+  color: red;
+}
 .page .form-container aside {
   text-align: center;
   padding: 10%;

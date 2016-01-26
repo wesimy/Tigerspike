@@ -1,8 +1,6 @@
 
 app.config(function ( $routeProvider ) {
   $routeProvider
-    
-     
       .when('/login', {
       templateUrl: 'dev/login/template.html',
       controller: 'LoginCtrl',
@@ -10,8 +8,11 @@ app.config(function ( $routeProvider ) {
     })
   .when('/register', {
       templateUrl: 'dev/register/template.html',
-      controller: 'RegisterCtrl',
-      controllerAs: 'register'
+      controller: 'RegisterationCtrl',
+      controllerAs: 'registeration'
+    })
+  .when('/dashboard', {
+      templateUrl: 'dev/dashboard/template.html'      
     })
     .otherwise({
       redirectTo: '/login'
