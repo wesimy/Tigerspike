@@ -14,7 +14,7 @@
     </div>
     <div class="container form-container">
         <div class="col-sm-8">
-            <form class="clearfix" name="registrationform" data-ng-submit="SubmitData(User)">
+            <form class="clearfix" name="registrationform" data-ng-submit="Register(User)">
                 <div class="form-group" ng-class="{ 'has-error': registrationform.forename.$touched && registrationform.forename.$invalid }">
                     <label for="forename">Forename*</label>
                     <input type="text" name="forename" class="form-control" id="forename" placeholder="Forename" data-ng-model="User.Forename" required ng-maxlength="100">

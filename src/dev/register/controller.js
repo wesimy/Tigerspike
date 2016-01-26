@@ -28,7 +28,7 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
          * @description
          * This Method submits the form data to the Registration Service
         **/
-    $scope.SubmitData = function(data){
+    $scope.Register = function(data){
         $scope.submitted = true;
         $scope.message = '';
         
