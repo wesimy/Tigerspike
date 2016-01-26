@@ -1,4 +1,18 @@
+/**
+@ngdoc overview
+@name Technical Exercise
+@description User Authentication Exercise
+**/
+
+
 'use strict';
+
+/**
+    *@ngdoc  TechnicalExercise Application
+    *@name App
+    *@description  
+    *
+    */
 var app = angular.module('TechnicalExercise', [
   'ngSanitize',
     'ngRoute',

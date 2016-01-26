@@ -3,6 +3,7 @@ var clean = require('gulp-clean');
 var concat = require('gulp-concat');
 var less = require('gulp-less');
 var runSequence = require('run-sequence');
+var gulpDocs = require('gulp-ngdocs');
 
 var buildDir = 'dist/';
 
@@ -77,14 +78,17 @@ gulp.task('appCSS', function () {
         .pipe(gulp.dest(buildDir + '/css'));
 });
 
+gulp.task('ngdocs', [], function () {
+  return gulp.src(appJS)
+    .pipe(gulpDocs.process())
+    .pipe(gulp.dest('./docs'));
+});
 
 /** initialize **/
 gulp.task('default', function (callback) {
     //runSequence( 'libJS', 'devLess', 'mainCSS','devCSS', callback);
-    runSequence('libJS', 'libCSS', 'appLess', 'appCSS', callback);
+    runSequence('libJS', 'libCSS', 'appLess', 'appCSS','ngdocs', callback);
 });
-
-
 
 
 /** watch **/

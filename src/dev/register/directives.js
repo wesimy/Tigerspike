@@ -1,3 +1,10 @@
+/**
+         * @ngdoc directive
+         * @name app.Directive:verify
+         * @restrict A
+         * @description
+         * this directive compares an input value against the value passed.
+        **/
 app.directive('verify', function() {
   return {
     restrict: 'A', // only activate on element attribute
@@ -27,7 +34,13 @@ app.directive('verify', function() {
   }
 });
 
-
+/**
+         * @ngdoc directive
+         * @name app.Directive:passwordToggle
+         * @restrict A
+         * @description
+         * this directive adds a checkbox to password input to unmask the password.
+        **/
 app.directive('passwordToggle',function($compile){
         return {
             restrict: 'A',

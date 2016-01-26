@@ -1,4 +1,10 @@
 
+/**
+         * @ngdoc object
+         * @name App Config
+         * @description Application Routing Provider
+        **/
+
 app.config(function ( $routeProvider ) {
   $routeProvider
       .when('/login', {

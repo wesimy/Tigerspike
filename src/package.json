@@ -21,8 +21,8 @@
     "gulp-clean": "^0.3.1",
     "gulp-concat": "^2.6.0",
     "gulp-less": "^3.0.5",
+    "gulp-ngdocs": "^0.2.13",
     "jasmine": "^2.4.1",
-    "jsdoc": "^3.4.0",
     "less": "^2.5.3",
     "run-sequence": "^1.1.5"
   },
