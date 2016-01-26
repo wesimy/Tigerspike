@@ -1,9 +1,6 @@
-app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($scope, RegistrationService) {
+app.controller('RegisterationCtrl', ['$scope','$location','RegistrationService',function ($scope, $location,RegistrationService) {
   console.log('Registeration Controller Init');
     // Default Variables
-    $scope.submitted = false;
-    $scope.message = '';
-    $scope.isFormValid = false;
     $scope.User = {
         Forename: '',
         Surname: '',
@@ -14,12 +11,7 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
         Password:''
     };
     
-    // Check Form Validation
-    $scope.$watch('registrationform.$valid', function(newValue){
-        $scope.isFormValid = newValue;
-    });
-    
-    
+    $scope.dt = '';
     
     /**
          * @ngdoc object
@@ -29,17 +21,15 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
          * This Method submits the form data to the Registration Service
         **/
     $scope.Register = function(data){
-        $scope.submitted = true;
         $scope.message = '';
         
-        if($scope.isFormValid){
+        if($scope.registrationform.$valid){
             console.log('Calling Save Data Service');
             RegistrationService.SaveData($scope.User).then(function(d){
                     
                    if(d === true){
                     // Clear The Form
-                     $scope.ClearForm();
-                       
+                     $location.path( "/dashboard" );  
                     // Redirect To Login
                        
                    }
@@ -63,8 +53,7 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
     $scope.ClearForm = function(){
         $scope.User = {};
         $scope.registrationform.$setPristine();
-        $scope.submitted = false;
-        $scope.isFormValid = false;
+        
     }
     
 }]);

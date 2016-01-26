@@ -1,18 +1,11 @@
-app.controller('LoginCtrl', ['$scope','LoginService',function ($scope, LoginService) {
+app.controller('LoginCtrl', ['$scope','$location','LoginService',function ($scope, $location, LoginService) {
   console.log('Login Controller Init');
+    
     // Default Variables
-    $scope.submitted = false;
-    $scope.isFormValid = false;
     $scope.User = {
         Username: '',
         Password: ''
     };
-    
-    // Check Form Validation
-    $scope.$watch('loginform.$valid', function(newValue){
-        $scope.isFormValid = newValue;
-    });
-    
     
     
     /**
@@ -23,19 +16,14 @@ app.controller('LoginCtrl', ['$scope','LoginService',function ($scope, LoginServ
          * This Method submits the form data to the Registration Service
         **/
     $scope.Login = function(data){
-        $scope.submitted = true;
-        
-        if($scope.isFormValid){
+        if($scope.loginform.$valid){
             console.log('Calling Save Data Service');
-            LoginService.AuthUser($scope.User).then(function(d){
-                    
+            LoginService.AuthUser($scope.User).then(function(d){     
                    if(d === true){
-                    // Clear The Form
-                       
                     // Redirect To Login
-                       
+                    $location.path( "/dashboard" )   
                    }
-                   
+                    // Do Something
                    else{
                        console.log('user is not valid');
                     }

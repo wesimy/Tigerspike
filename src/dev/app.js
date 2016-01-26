@@ -4,7 +4,8 @@ var app = angular.module('TechnicalExercise', [
     'ngRoute',
   'ngSanitize',
     'ngAnimate',
-    'ngMessages'
+    'ngMessages',
+    'ui.bootstrap'
 ]);
 
 

@@ -4,17 +4,12 @@ var app = angular.module('TechnicalExercise', [
     'ngRoute',
   'ngSanitize',
     'ngAnimate',
-    'ngMessages'
+    'ngMessages',
+    'ui.bootstrap'
 ]);
 
 
 
-app.run(function($rootScope){
-  $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
-    console.log(event, current, previous, rejection);
-    
-  })
-});
 
 app.config(function ( $routeProvider ) {
   $routeProvider
@@ -35,21 +30,20 @@ app.config(function ( $routeProvider ) {
       redirectTo: '/login'
     });
 });
-app.controller('LoginCtrl', ['$scope','LoginService',function ($scope, LoginService) {
+app.run(function($rootScope){
+  $rootScope.$on('$routeChangeError', function(event, current, previous, rejection){
+    console.log(event, current, previous, rejection);
+    
+  })
+});
+app.controller('LoginCtrl', ['$scope','$location','LoginService',function ($scope, $location, LoginService) {
   console.log('Login Controller Init');
+    
     // Default Variables
-    $scope.submitted = false;
-    $scope.isFormValid = false;
     $scope.User = {
         Username: '',
         Password: ''
     };
-    
-    // Check Form Validation
-    $scope.$watch('loginform.$valid', function(newValue){
-        $scope.isFormValid = newValue;
-    });
-    
     
     
     /**
@@ -60,19 +54,14 @@ app.controller('LoginCtrl', ['$scope','LoginService',function ($scope, LoginServ
          * This Method submits the form data to the Registration Service
         **/
     $scope.Login = function(data){
-        $scope.submitted = true;
-        
-        if($scope.isFormValid){
+        if($scope.loginform.$valid){
             console.log('Calling Save Data Service');
-            LoginService.AuthUser($scope.User).then(function(d){
-                    
+            LoginService.AuthUser($scope.User).then(function(d){     
                    if(d === true){
-                    // Clear The Form
-                       
                     // Redirect To Login
-                       
+                    $location.path( "/dashboard" )   
                    }
-                   
+                    // Do Something
                    else{
                        console.log('user is not valid');
                     }
@@ -113,12 +102,9 @@ app.service("LoginService", ['$http', '$q', function ($http, $q)
         
 		
 	}]);
-app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($scope, RegistrationService) {
+app.controller('RegisterationCtrl', ['$scope','$location','RegistrationService',function ($scope, $location,RegistrationService) {
   console.log('Registeration Controller Init');
     // Default Variables
-    $scope.submitted = false;
-    $scope.message = '';
-    $scope.isFormValid = false;
     $scope.User = {
         Forename: '',
         Surname: '',
@@ -129,12 +115,7 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
         Password:''
     };
     
-    // Check Form Validation
-    $scope.$watch('registrationform.$valid', function(newValue){
-        $scope.isFormValid = newValue;
-    });
-    
-    
+    $scope.dt = '';
     
     /**
          * @ngdoc object
@@ -144,17 +125,15 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
          * This Method submits the form data to the Registration Service
         **/
     $scope.Register = function(data){
-        $scope.submitted = true;
         $scope.message = '';
         
-        if($scope.isFormValid){
+        if($scope.registrationform.$valid){
             console.log('Calling Save Data Service');
             RegistrationService.SaveData($scope.User).then(function(d){
                     
                    if(d === true){
                     // Clear The Form
-                     $scope.ClearForm();
-                       
+                     $location.path( "/dashboard" );  
                     // Redirect To Login
                        
                    }
@@ -178,12 +157,53 @@ app.controller('RegisterationCtrl', ['$scope','RegistrationService',function ($s
     $scope.ClearForm = function(){
         $scope.User = {};
         $scope.registrationform.$setPristine();
-        $scope.submitted = false;
-        $scope.isFormValid = false;
+        
     }
     
 }]);
 
+app.directive('verify', function() {
+  return {
+    restrict: 'A', // only activate on element attribute
+    require: '?ngModel', // get a hold of NgModelController
+    link: function(scope, elem, attrs, ngModel) {
+      if(!ngModel) return; // do nothing if no ng-model
+
+      // watch own value and re-validate on change
+      scope.$watch(attrs.ngModel, function() {
+        validate();
+      });
+
+      // observe the other value and re-validate on change
+      attrs.$observe('verify', function (val) {
+        validate();
+      });
+
+      var validate = function() {
+        // values
+        var val1 = ngModel.$viewValue;
+        var val2 = attrs.verify;
+
+        // set validity
+        ngModel.$setValidity('verify', ! val1 || ! val2 || val1 === val2);
+      };
+    }
+  }
+});
+
+
+app.directive('passwordToggle',function($compile){
+        return {
+            restrict: 'A',
+            scope:{},
+            link: function(scope,elem,attrs){
+                scope.tgl = function(){ elem.attr('type',(elem.attr('type')==='text'?'password':'text')); }
+                var lnk = angular.element('<div class="input-group-addon"><input type="checkbox" id="showpass" data-ng-click="tgl()"/> <label for="showpass"><small>Show</small></label></div>');
+                $compile(lnk)(scope);
+                elem.wrap('<div class="input-group"/>').after(lnk);
+            }
+        }
+    });
 app.service("RegistrationService", ['$http', '$q', function ($http, $q)
 	{
         /**

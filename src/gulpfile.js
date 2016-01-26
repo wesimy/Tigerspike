@@ -8,13 +8,12 @@ var buildDir = 'dist/';
 
 var libJS = [
     'node_modules/jquery/dist/jquery.min.js',
-    'node_modules/bootstrap/dist/js/bootstrap.min.js',
     'node_modules/angular/angular.js',
     'node_modules/angular-route/angular-route.js',
     'node_modules/angular-animate/angular-animate.js',
     'node_modules/angular-messages/angular-messages.js',
-    'node_modules/angular-sanitize/angular-sanitize.js'
-
+    'node_modules/angular-sanitize/angular-sanitize.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
 ];
 
 
@@ -25,7 +24,7 @@ var libCSS = [
 
 var appJS 			= [
     'dev/app.js',
-    //                       'dev/config.js',
+    'dev/config.js',
     'dev/run.js',
     'dev/**/*.js',
     'dev/**/**/*.js',
