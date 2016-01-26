@@ -18,12 +18,20 @@
   "homepage": "https://github.com/wesimy/tigerspike#readme",
   "devDependencies": {
     "gulp": "^3.9.0",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-less": "^3.0.5",
     "jasmine": "^2.4.1",
     "jsdoc": "^3.4.0",
-    "less": "^2.5.3"
+    "less": "^2.5.3",
+    "run-sequence": "^1.1.5"
   },
   "dependencies": {
     "angular": "^1.4.9",
+    "angular-animate": "^1.4.9",
+    "angular-messages": "^1.4.9",
+    "angular-route": "^1.4.9",
+    "angular-sanitize": "^1.4.9",
     "bootstrap": "^3.3.6",
     "jquery": "^1.12.0"
   }
